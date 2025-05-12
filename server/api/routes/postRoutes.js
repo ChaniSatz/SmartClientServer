@@ -14,20 +14,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get post by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const post = await getById(req.params.id, "posts");
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-    res.json(post);
-  } catch (error) {
-    console.error('Error getting post:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
 // Create post
 router.post('/', async (req, res) => {
   try {

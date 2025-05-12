@@ -1,9 +1,10 @@
-const mysql = require('mysql2'); 
+const mysql = require('mysql2');
+require('dotenv').config({ path: `../../database/.env` });
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Cs0583299351!',
-    database: 'chaniandayala'
+    host: "localhost",
+    user: "root",
+    password: "Cs0583299351!",
+    database: "chaniandayala",
 });
 
 class DAL {
@@ -13,16 +14,16 @@ class DAL {
         return new Promise((resolve, reject) => {
             const query = `
             SELECT u.*, p.password_hash 
-            FROM ${table} u
+            FROM \`${table}\` u
             JOIN passwords p ON u.id = p.user_id
             WHERE u.username = ?
-          `;
+        `;
 
             pool.execute(query, [username], (err, results) => {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(results[0]); 
+                    resolve(results[0]);
                 }
             });
         });
@@ -30,7 +31,7 @@ class DAL {
 
     getById(id, table) {
         return new Promise((resolve, reject) => {
-            const query = `SELECT * FROM ${table} WHERE id = ?`;
+            const query = `SELECT * FROM ${table} WHERE id = ${id}`;
             pool.execute(query, [id], (err, results) => {
                 if (err) {
                     reject(err);
@@ -70,6 +71,8 @@ class DAL {
     create(data, table) {
         return new Promise((resolve, reject) => {
             const columns = Object.keys(data).join(', ');
+            console.log(data);
+            
             const values = Object.values(data);
             const placeholders = values.map(() => '?').join(', ');
 
@@ -79,13 +82,15 @@ class DAL {
                 if (err) {
                     reject(err);
                 } else {
-                    resolve(results.insertId); 
+                    resolve(results.insertId);
                 }
             });
         });
     }
 
     update(id, data, table) {
+        console.log(data);
+        
         return new Promise((resolve, reject) => {
             const setClause = Object.keys(data).map(key => `${key} = ?`).join(', ');
             const values = Object.values(data);

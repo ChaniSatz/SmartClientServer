@@ -7,6 +7,11 @@ const checkPassword = async (plainPassword, hashedPassword) => {
   // const match = await bcrypt.compare(plainPassword, hashedPassword);
   // return match;
 };
+// const checkPassword = async (plainPassword, hashedPassword) => {
+//   const match = await bcrypt.compare(plainPassword, hashedPassword);
+//   return match;
+// };
+
 
 const loginUser = async (username, plainPassword) => {
   const user = await findUserByUsername(username,"users");

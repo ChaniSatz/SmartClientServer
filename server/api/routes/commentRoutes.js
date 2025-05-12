@@ -4,7 +4,6 @@ const { getById, getByPostId, create, deleteItem, update } = require('../../bl/B
 const router = express.Router();
 
 
-// Get comment by ID
 router.get('/:id', async (req, res) => {
   try {
     const comment = await getById(req.params.id, "comments");
