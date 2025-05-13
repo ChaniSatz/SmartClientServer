@@ -4,23 +4,25 @@ const { getById, getByUserId, deleteItem, create, update } = require('../../bl/B
 const router = express.Router();
 
 // Get todos by user ID
-router.get('/:userId', async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    if (!userId) return res.status(400).json({ message: 'Missing userId' });
+// router.get('/:userId', async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     if (!userId) return res.status(400).json({ message: 'Missing userId' });
 
-    const todos = await getByUserId(userId, 'todos');
-    res.json(todos);
-  } catch (error) {
-    console.error('Error getting todos:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+//     const todos = await getByUserId(userId, 'todos');
+//     res.json(todos);
+//   } catch (error) {
+//     console.error('Error getting todos:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
 
 // Get todo by ID
 router.get('/:id', async (req, res) => {
   try {
     const todo = await getByUserId(parseInt(req.params.id), "todos");
+    console.log("hi");
+
     if (!todo) {
       return res.status(404).json({ message: 'Todo not found' });
     }
@@ -35,6 +37,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const todo = await create(req.body, "todos");
+
     res.status(201).json(todo);
   } catch (error) {
     console.error('Error creating todo:', error);
@@ -45,7 +48,7 @@ router.post('/', async (req, res) => {
 // Update todo
 router.put('/:id', async (req, res) => {
   try {
-    const todo = await update(req.params.id, req.body,"todos");
+    const todo = await update(req.params.id, req.body, "todos");
     if (!todo) {
       return res.status(404).json({ message: 'Todo not found' });
     }

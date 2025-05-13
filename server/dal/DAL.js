@@ -31,7 +31,7 @@ class DAL {
 
     getById(id, table) {
         return new Promise((resolve, reject) => {
-            const query = `SELECT * FROM ${table} WHERE id = ${id}`;
+            const query = `SELECT * FROM ${table} WHERE post_Id = ${id}`;
             pool.execute(query, [id], (err, results) => {
                 if (err) {
                     reject(err);
@@ -63,27 +63,63 @@ class DAL {
                     reject(err);
                 } else {
                     resolve(results);
+                    console.log(results);
+                    
                 }
             });
         });
     }
 
+    // create(data, table) {
+    //     return new Promise((resolve, reject) => {
+    //         const columns = Object.keys(data).join(', ');
+    //         const values = Object.values(data);
+    //         const placeholders = values.map(() => '?').join(', ');
+
+    //         const insertQuery = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
+
+    //         pool.execute(insertQuery, values, (err, results) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+
+    //             const insertedId = results.insertId;
+    //             const selectQuery = `SELECT * FROM ${table} WHERE id = ?`;
+
+    //             pool.execute(selectQuery, [insertedId], (err2, rows) => {
+    //                 if (err2) {
+    //                     return reject(err2);
+    //                 }
+
+    //                 resolve(rows);
+    //             });
+    //         });
+    //     });
+    // }
     create(data, table) {
         return new Promise((resolve, reject) => {
             const columns = Object.keys(data).join(', ');
-            console.log(data);
-
             const values = Object.values(data);
             const placeholders = values.map(() => '?').join(', ');
 
-            const query = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
+            const insertQuery = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
 
-            pool.execute(query, values, (err, results) => {
+            pool.execute(insertQuery, values, (err, results) => {
                 if (err) {
-                    reject(err);
-                } else {
-                    resolve(results.insertId);
+                    return reject(err);
                 }
+
+                const insertedId = results.insertId;
+                const selectQuery = `SELECT * FROM ${table} WHERE id = ?`;
+
+                pool.execute(selectQuery, [insertedId], (err2, rows) => {
+                    if (err2) {
+                        return reject(err2);
+                    }
+                    console.log(resolve(rows[0]));
+
+                    resolve(rows[0]);
+                });
             });
         });
     }

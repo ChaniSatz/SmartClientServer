@@ -9,8 +9,8 @@ router.get('/:id', async (req, res) => {
     const comment = await getById(req.params.id, "comments");
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
-    }
-    res.json(comment);
+    }    
+    res.json([comment]);
   } catch (error) {
     console.error('Error getting comment:', error);
     res.status(500).json({ message: 'Server error' });

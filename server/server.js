@@ -2,13 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
-const {initializeDatabase} = require('./database/db');
+const {initializeDatabase} = require('../database/db');
 dotenv.config();
-const commentRoutes = require('./server/api/routes/commentRoutes');
-const postRoutes = require('./server/api/routes/postRoutes');
-const todosRouts = require('./server/api/routes/todoRoutes');
-const authRoutes = require('./server/api/routes/authRoutes');
-const userRoutes = require('./server/api/routes/userRoutes');
+const commentRoutes = require('./api/routes/commentRoutes');
+const postRoutes = require('./api/routes/postRoutes');
+const todosRouts = require('./api/routes/todoRoutes');
+const authRoutes = require('./api/routes/authRoutes');
+const userRoutes = require('./api/routes/userRoutes');
 
 const app = express();
 const PORT = process.env.DB_PORT || 3000;
@@ -22,10 +22,6 @@ app.use('/api/todos', todosRouts);
 app.use('/api/posts', postRoutes);
 app.use('/api/auth', authRoutes);
 app.use(express.static(path.join(__dirname, 'client', 'build')));
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-// });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
