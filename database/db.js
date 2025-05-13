@@ -18,7 +18,6 @@ async function testConnection() {
 
 async function initializeDatabase() {
   try {
-    // 1. התחברות בלי לבחור database
     const tempConnection = await mysql.createConnection({
       host: "localhost",
       user: "root",
@@ -31,7 +30,6 @@ async function initializeDatabase() {
     console.log(`Database ${process.env.DB_NAME} created or already exists`);
     await tempConnection.end();
 
-    // 2. התחברות מחדש עם בסיס הנתונים שנבחר
     connection = await mysql.createConnection({
       host: "localhost",
       user: "root",

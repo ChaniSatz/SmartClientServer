@@ -21,7 +21,8 @@ router.get('/', async (req, res) => {
     const postId = req.query.postId;
     if (!postId) return res.status(400).json({ message: 'Missing postId' });
 
-    const todos = await getByPostId(postId, 'commments');;
+    // const todos = await getByPostId(postId, 'commments');;
+    const comments = await getByPostId(postId, 'comments');
     res.json(todos);
   } catch (error) {
     console.error('Error getting todos:', error);

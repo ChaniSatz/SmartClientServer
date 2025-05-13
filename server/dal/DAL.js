@@ -72,7 +72,7 @@ class DAL {
         return new Promise((resolve, reject) => {
             const columns = Object.keys(data).join(', ');
             console.log(data);
-            
+
             const values = Object.values(data);
             const placeholders = values.map(() => '?').join(', ');
 
@@ -90,15 +90,19 @@ class DAL {
 
     update(id, data, table) {
         console.log(data);
-        
+
         return new Promise((resolve, reject) => {
             const setClause = Object.keys(data).map(key => `${key} = ?`).join(', ');
             const values = Object.values(data);
             values.push(id);
+            const { created_at, ...newdata } = data;
+            const updateQuery = mysql.format(`
+            UPDATE ?? 
+            SET ? 
+            WHERE id = ?
+        `, [table, newdata, id])
 
-            const query = `UPDATE ${table} SET ${setClause} WHERE id = ?`;
-
-            pool.execute(query, values, (err, results) => {
+            pool.execute(updateQuery, (err, results) => {
                 if (err) {
                     reject(err);
                 } else {
