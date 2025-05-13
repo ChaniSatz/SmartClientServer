@@ -21,7 +21,6 @@ router.get('/', async (req, res) => {
     const postId = req.query.postId;
     if (!postId) return res.status(400).json({ message: 'Missing postId' });
 
-    // const todos = await getByPostId(postId, 'commments');;
     const comments = await getByPostId(postId, 'comments');
     res.json(todos);
   } catch (error) {
@@ -30,7 +29,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create comment
 router.post('/', async (req, res) => {
   try {
     const comment = await create(req.body, "comments");;
@@ -41,7 +39,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update comment
 router.put('/:id', async (req, res) => {
   try {
     const comment = await update(req.params.id, req.body, "comments");
@@ -55,7 +52,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete comment
 router.delete('/:id', async (req, res) => {
   try {
     const result = await deleteItem(req.params.id, "comments");

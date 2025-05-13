@@ -3,7 +3,6 @@ const userBL = require('../../bl/BL.js');
 
 const router = express.Router();
 
-// Get all users
 router.get('/', async (req, res) => {
   try {
     const users = await userBL.getAllUsers();
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get user by ID
 router.get('/:id', async (req, res) => {
   try {
     const user = await userBL.getUserById(req.params.id);
@@ -28,7 +26,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create user
 router.post('/', async (req, res) => {
   try {
     const userId = await userBL.createUser(req.body);
@@ -39,7 +36,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update user
 router.put('/:id', async (req, res) => {
   try {
     const user = await userBL.updateUser(req.params.id, req.body);
@@ -53,7 +49,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete user
 router.delete('/:id', async (req, res) => {
   try {
     const result = await userBL.deleteUser(req.params.id);

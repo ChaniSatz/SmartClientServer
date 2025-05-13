@@ -3,21 +3,6 @@ const { getById, getByUserId, deleteItem, create, update } = require('../../bl/B
 
 const router = express.Router();
 
-// Get todos by user ID
-// router.get('/:userId', async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     if (!userId) return res.status(400).json({ message: 'Missing userId' });
-
-//     const todos = await getByUserId(userId, 'todos');
-//     res.json(todos);
-//   } catch (error) {
-//     console.error('Error getting todos:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
-// Get todo by ID
 router.get('/:id', async (req, res) => {
   try {
     const todo = await getByUserId(parseInt(req.params.id), "todos");
@@ -33,7 +18,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create todo
 router.post('/', async (req, res) => {
   try {
     const todo = await create(req.body, "todos");
@@ -45,7 +29,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update todo
 router.put('/:id', async (req, res) => {
   try {
     const todo = await update(req.params.id, req.body, "todos");
@@ -59,7 +42,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete todo
 router.delete('/:id', async (req, res) => {
   try {
     const result = await deleteItem(req.params.id, "todos");

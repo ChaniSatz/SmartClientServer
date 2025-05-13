@@ -69,33 +69,7 @@ class DAL {
             });
         });
     }
-
-    // create(data, table) {
-    //     return new Promise((resolve, reject) => {
-    //         const columns = Object.keys(data).join(', ');
-    //         const values = Object.values(data);
-    //         const placeholders = values.map(() => '?').join(', ');
-
-    //         const insertQuery = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
-
-    //         pool.execute(insertQuery, values, (err, results) => {
-    //             if (err) {
-    //                 return reject(err);
-    //             }
-
-    //             const insertedId = results.insertId;
-    //             const selectQuery = `SELECT * FROM ${table} WHERE id = ?`;
-
-    //             pool.execute(selectQuery, [insertedId], (err2, rows) => {
-    //                 if (err2) {
-    //                     return reject(err2);
-    //                 }
-
-    //                 resolve(rows);
-    //             });
-    //         });
-    //     });
-    // }
+    
     create(data, table) {
         return new Promise((resolve, reject) => {
             const columns = Object.keys(data).join(', ');

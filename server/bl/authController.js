@@ -2,19 +2,15 @@ const { retry } = require('statuses');
 const { findUserByUsername } = require('../dal/DAL');
 const bcrypt = require('bcrypt');
 
-const checkPassword = async (plainPassword, hashedPassword) => {
-  return plainPassword==hashedPassword;
-  // const match = await bcrypt.compare(plainPassword, hashedPassword);
-  // return match;
+const checkPassword = async (plainPassword, password) => {
+  return plainPassword == password;
+
 };
-// const checkPassword = async (plainPassword, hashedPassword) => {
-//   const match = await bcrypt.compare(plainPassword, hashedPassword);
-//   return match;
-// };
+
 
 
 const loginUser = async (username, plainPassword) => {
-  const user = await findUserByUsername(username,"users");
+  const user = await findUserByUsername(username, "users");
 
   if (!user) {
     console.log('Invalid credentials');
@@ -23,10 +19,16 @@ const loginUser = async (username, plainPassword) => {
 
   const match = await checkPassword(plainPassword, user.password_hash);
 
-  if (match) {
-    console.log('Login successful!');
-    return user;  
-  } else {
+if (match) {
+    console.log(user);
+  const { id, username, email } = user;
+
+  console.log('Login successful!');
+  
+  return { id, username, email };
+}
+
+  else {
     console.log('Invalid credentials');
     return false;
   }

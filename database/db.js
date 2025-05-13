@@ -7,7 +7,7 @@ let connection;
 
 async function testConnection() {
   try {
-    await connection.connect(); // Not strictly needed, as `mysql2/promise` auto-connects
+    await connection.connect(); 
     console.log('Connected to MySQL database successfully!');
     return true;
   } catch (error) {
@@ -38,7 +38,6 @@ async function initializeDatabase() {
       port: 3306
     });
 
-    // 3. קריאת schema
     const schemaSQL = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
     const queries = schemaSQL.split(';').filter(q => q.trim() !== '');
 

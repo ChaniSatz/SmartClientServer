@@ -10,12 +10,10 @@ class UserBL {
   }
 
   async createUser(userData) {
-    // Add validation logic here
     return await userDL.createUser(userData);
   }
 
   async updateUser(userId, userData) {
-    // Add validation logic here
     return await userDL.updateUser(userId, userData);
   }
 

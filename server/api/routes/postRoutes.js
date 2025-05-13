@@ -3,7 +3,6 @@ const { getById, getAll, create, update, deleteItem } = require('../../bl/BL.js'
 
 const router = express.Router();
 
-// Get all posts
 router.get('/', async (req, res) => {
   try {
     const posts = await getAll("posts");
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create post
 router.post('/', async (req, res) => {
   try {
     const post = await create(req.body, "posts");
@@ -25,7 +23,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update post
 router.put('/:id', async (req, res) => {
   try {
     const post = await update(req.params.id, req.body, "posts");
@@ -39,7 +36,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete post
 router.delete('/:id', async (req, res) => {
   try {
     const result = await deleteItem(req.params.id, "posts");
